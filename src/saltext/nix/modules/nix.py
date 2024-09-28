@@ -32,12 +32,10 @@ def __virtual__():
     """
     This only works if we have access to nix-env
     """
-    nixhome = os.path.join(
-        os.path.expanduser("~{}".format(__opts__["user"])), ".nix-profile/bin/"
-    )
-    if salt.utils.path.which(
-        os.path.join(nixhome, "nix-env")
-    ) and salt.utils.path.which(os.path.join(nixhome, "nix-collect-garbage")):
+    nixhome = os.path.join(os.path.expanduser("~{}".format(__opts__["user"])), ".nix-profile/bin/")
+    if salt.utils.path.which(os.path.join(nixhome, "nix-env")) and salt.utils.path.which(
+        os.path.join(nixhome, "nix-collect-garbage")
+    ):
         return True
     else:
         return (
@@ -61,9 +59,7 @@ def _nix_env():
     nix-env with quiet option. By default, nix is extremely verbose and prints the build log of every package to stderr. This tells nix to
     only show changes.
     """
-    nixhome = os.path.join(
-        os.path.expanduser("~{}".format(__opts__["user"])), ".nix-profile/bin/"
-    )
+    nixhome = os.path.join(os.path.expanduser("~{}".format(__opts__["user"])), ".nix-profile/bin/")
     return [os.path.join(nixhome, "nix-env")]
 
 
@@ -71,9 +67,7 @@ def _nix_collect_garbage():
     """
     Make sure we get the right nix-store, too.
     """
-    nixhome = os.path.join(
-        os.path.expanduser("~{}".format(__opts__["user"])), ".nix-profile/bin/"
-    )
+    nixhome = os.path.join(os.path.expanduser("~{}".format(__opts__["user"])), ".nix-profile/bin/")
     return [os.path.join(nixhome, "nix-collect-garbage")]
 
 
@@ -184,11 +178,7 @@ def install(*pkgs, **kwargs):
 
     installs = list(
         itertools.chain.from_iterable(
-            [
-                s.split()[1:]
-                for s in out["stderr"].splitlines()
-                if s.startswith("installing")
-            ]
+            [s.split()[1:] for s in out["stderr"].splitlines() if s.startswith("installing")]
         )
     )
 
