@@ -121,6 +121,8 @@ def upgrade(*pkgs):
     :return: The upgraded packages. Example element: ``['libxslt-1.1.0', 'libxslt-1.1.10']``
     :rtype: list(tuple(str, str))
 
+    CLI Example:
+
     .. code-block:: bash
 
         salt '*' nix.update
@@ -155,14 +157,13 @@ def install(*pkgs, **kwargs):
     :return: Installed packages. Example element: ``gcc-3.3.2``
     :rtype: list(str)
 
+    CLI Example:
+
     .. code-block:: bash
 
         salt '*' nix.install package [package2 ...]
         salt '*' nix.install attributes=True attr.name [attr.name2 ...]
     """
-
-    attributes = kwargs.get("attributes", False)
-
     if not pkgs:
         return "Plese specify a package or packages to upgrade"
 
@@ -199,6 +200,8 @@ def list_pkgs(installed=True, attributes=True):
 
     :return: Packages installed or available, along with their attributes.
     :rtype: list(list(str))
+
+    CLI Example:
 
     .. code-block:: bash
 
@@ -242,6 +245,8 @@ def uninstall(*pkgs):
     :return: Packages that have been uninstalled
     :rtype: list(str)
 
+    CLI Example:
+
     .. code-block:: bash
 
         salt '*' nix.uninstall pkg1 [pkg2 ...]
@@ -252,8 +257,6 @@ def uninstall(*pkgs):
     cmd.extend(pkgs)
 
     out = _run(cmd)
-
-    fmtout = out["stderr"].splitlines(), "uninstalling"
 
     return [
         _strip_quotes(s.split()[1])
@@ -273,6 +276,8 @@ def collect_garbage():
 
     .. warning::
        This is a destructive action on the nix store.
+
+    CLI Example:
 
     .. code-block:: bash
 
