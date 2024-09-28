@@ -2,20 +2,19 @@
 Work with Nix packages
 ======================
 
-.. versionadded:: 2017.7.0
-
-Does not require the machine to be Nixos, just have Nix installed and available
+Does not require the machine to be NixOS, just have Nix installed and available
 to use for the user running this command. Their profile must be located in
 their home, under ``$HOME/.nix-profile/``, and the nix store, unless specially
 set up, should be in ``/nix``. To easily use this with multiple users or a root
 user, set up the `nix-daemon`_.
 
-This module exposes most of the common nix operations. Currently not meant to be run as a ``pkg`` module, but explicitly as ``nix.*``.
+This module exposes most of the common nix operations.
+Currently not meant to be run as a ``pkg`` module, but explicitly as ``nix.*``.
 
 For more information on nix, see the `nix documentation`_.
 
 .. _`nix documentation`: https://nixos.org/nix/manual/
-.. _`nix-daemon`: https://nixos.org/nix/manual/#ssec-multi-user
+.. _`nix-daemon`: https://nix.dev/manual/nix/latest/installation/multi-user
 """
 
 import itertools
@@ -29,9 +28,6 @@ logger = logging.getLogger(__name__)
 
 
 def __virtual__():
-    """
-    This only works if we have access to nix-env
-    """
     nixhome = os.path.join(os.path.expanduser("~{}".format(__opts__["user"])), ".nix-profile/bin/")
     if salt.utils.path.which(os.path.join(nixhome, "nix-env")) and salt.utils.path.which(
         os.path.join(nixhome, "nix-collect-garbage")
