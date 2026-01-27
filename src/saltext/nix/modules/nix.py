@@ -13,7 +13,7 @@ Currently not meant to be run as a ``pkg`` module, but explicitly as ``nix.*``.
 
 For more information on nix, see the `nix documentation`_.
 
-.. _`nix documentation`: https://nixos.org/nix/manual/
+.. _`nix documentation`: https://nix.dev/manual/nix
 .. _`nix-daemon`: https://nix.dev/manual/nix/latest/installation/multi-user
 """
 
